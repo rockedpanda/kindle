@@ -1,0 +1,8 @@
+pre{
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+
+[v-cloak]{
+    display:none;
+}
