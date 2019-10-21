@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>git for kindel</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+    <div id="main">
+        <div v-for="(item, index) in list">
+            <a :href="getTarget(item)">{{item.name}}{{item.type=='dir'?'/':''}}</a>
+        </div>
+    </div>
+</body>
+<script src="js/main.js"></script>
+<!--
+    index.html?path=https://api.github.com/repos/rockedpanda/gitkindle/contents
+-->
+</html>
