@@ -11,7 +11,7 @@ var vm = new Vue({
         }
     },
     mounted: function() {
-        var url = decodeURI(document.location.search.replace('?path=','')) || 'https://api.github.com/repos/rockedpanda/kindel/contents';
+        var url = decodeURI(document.location.search.replace('?path=','')) || 'https://api.github.com/repos/rockedpanda/kindle/contents';
         $.get(url).then(function(d){
             vm.list = d;
         });
