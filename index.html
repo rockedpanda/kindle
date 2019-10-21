@@ -10,6 +10,7 @@
 </head>
 <body>
     <div id="main">
+        <input v-model="path" /><button @click="goPath">跳转</button>
         <div v-for="(item, index) in list">
             <a :href="getTarget(item)">{{item.name}}{{item.type=='dir'?'/':''}}</a>
         </div>
