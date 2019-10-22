@@ -1,3 +1,21 @@
+var cacheReq = {
+    cache: {},
+    get: function(url){
+        return this.cache[url] ||null;
+    },
+    set: function(url, data){
+        this.cache[url] = data;
+    },
+    del: function(url){
+        this.cache[url] = undefined;
+        delete this.cache[url];
+    },
+    delAll: function(){
+        this.cache = {};
+    }
+};
+
+
 var vm = new Vue({
     el:'#main',
     data:function(){
@@ -36,8 +54,13 @@ var vm = new Vue({
             this.mode = 'detail';
             this.content = '';
             this.list=[];
+            if(cacheReq.get(url)){
+                vm.content = cacheReq.get(url);
+                return;
+            }
             $.get(url).then(function(d){
                 vm.content = d;
+                cacheReq.set(url, d);
             });
         },
         showList: function(){
@@ -46,10 +69,17 @@ var vm = new Vue({
             this.mode = 'list';
             this.content = '';
             this.list=[];
+            if(cacheReq.get(url)){
+                vm.list = cacheReq.get(url).sort(function(a,b){
+                    return (a.type < b.type || a.name < b.name)?-1:1;
+                });
+                return;
+            }
             $.get(url).then(function(d){
                 vm.list = d.sort(function(a,b){
                     return (a.type < b.type || a.name < b.name)?-1:1;
                 });
+                cacheReq.set(url, d);
             });
         },
         showInfo: function(){
