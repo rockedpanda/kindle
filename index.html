@@ -11,9 +11,15 @@
 </head>
 <body>
     <div id="main">
-        <input v-model="path" /><button @click="goPath">跳转</button>
-        <div v-for="(item, index) in list">
-            <a :href="getTarget(item)">{{item.name}}{{item.type=='dir'?'/':''}}</a>
+        <div id="list" v-show="mode=='list'">
+            <input v-model="path" /><button @click="goPath">跳转</button><br/>
+            &gt; <span class="underline" v-for="(dir,i) in dirs" @click="skip(i)">{{dir}}/</span>
+            <div v-for="(item, index) in list" @click="goPage(item)" class="underline">
+                {{item.name}}{{item.type=='dir'?'/':''}}
+            </div>
+        </div>
+        <div id="detail" v-show="mode=='detail'">
+            <pre>{{content}}</pre>
         </div>
     </div>
 </body>
