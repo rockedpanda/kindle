@@ -8,11 +8,35 @@
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <link rel="stylesheet" href="css/common.css" />
+    <style>
+    #back{
+        font-size: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.2);
+    color: #FFF;
+    border-radius: 50%;
+    display: block;
+    position: fixed;
+    right: 3px;
+    bottom: 3px;
+    text-align: center;
+    line-height: 40px;
+    }
+    #favs{
+        position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #DDD;
+    }
+    </style>
 </head>
 <body>
     <div id="main">
         <div id="list" v-show="mode=='list'">
-            <input v-model="path" /><button @click="goPath">跳转</button><br/>
+            <input v-model="path" /><button @click="goPath">跳转</button> <button @click="addFav">加入收藏</button> <button @click="showFav=true">收藏夹</button> <br/>
             &gt; <span class="underline" v-for="(dir,i) in dirs" @click="skip(i)">{{dir}}/</span>
             <div v-for="(item, index) in list" @click="goPage(item)" class="underline">
                 {{item.name}}{{item.type=='dir'?'/':''}}
@@ -20,6 +44,13 @@
         </div>
         <div id="detail" v-show="mode=='detail'">
             <pre>{{content}}</pre>
+            <span id="back" @click="back">返回</span>
+        </div>
+        <div id="favs" v-show="showFav">
+            <button @click="showFav=false">关闭</button>
+            <ul id="favList">
+                <li v-for="(fav, i) in favs" @click="goFav(fav)"><span @click="showFav=false;showPath(fav)">{{fav}}</span><button @click="delFav(i)">删除</button></li>
+            </ul>
         </div>
     </div>
 </body>

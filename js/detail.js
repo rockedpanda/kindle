@@ -12,7 +12,10 @@ var vm = new Vue({
     },
     mounted: function() {
         var url = decodeURI(document.location.search.replace('?path=',''));
-        $.get(url).then(function(d){
+        $.ajax({
+            url: url,
+            dataType: 'text'
+          }).then(function(d){
             vm.content = d;
         });
     },
